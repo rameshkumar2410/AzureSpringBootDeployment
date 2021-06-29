@@ -35,9 +35,9 @@ import com.microsoft.azure.storage.blob.CloudBlobContainer;
 @Plugin(name = "AzureBlobAppender", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
 public class AzureBlobConfiguration extends AbstractAppender {
 
-    private static String SASURL = "DIAGNOSTICS_AZUREBLOBCONTAINERSASURL";
-    private static String WEBSITE_NAME = "WEBSITE_SITE_NAME";
-    private static String WEBSITE_ID = "WEBSITE_INSTANCE_ID";
+    private static String SASURL = "https://creditdecisionstorage.blob.core.windows.net/testingblob?sp=racwdl&st=2021-06-29T04:47:18Z&se=2021-06-30T12:47:18Z&sv=2020-02-10&sr=c&sig=GgSYGwymS%2Bm9thPtLm6UdzxfUHNDofRNhKtZOO7tCio%3D";
+    private static String WEBSITE_NAME = "creditdecisionstorage";
+    private static String WEBSITE_ID = "Oa4gN0SkvO34yECO+n9UE4kyCbsgQlOG/kGbJMONRMF18+wwX4YIYx4Bb527akuPzRPMcMQOR52uOZuMNLdviA==";
 
     private CloudBlobContainer _container;
     private String _prefix1;

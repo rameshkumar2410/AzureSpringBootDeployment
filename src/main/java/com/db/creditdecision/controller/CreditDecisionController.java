@@ -1,10 +1,12 @@
 package com.db.creditdecision.controller;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.ws.rs.core.MediaType;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -31,7 +33,10 @@ import com.db.creditdecision.validator.CreditDecisionValidator;
 @RequestMapping("/creditdecision")
 public class CreditDecisionController {
 
-	private static final Logger LOGGER = Logger.getLogger(CreditDecisionController.class);
+//	private static final Logger LOGGER = Logger.getLogger(CreditDecisionController.class);
+	
+	Logger logger = Configurator.initialize("TestingBlob", "config-webapps.xml")
+			.getLogger(CreditDecisionController.class.getName());
 
 	@Autowired
 	CreditDecisionValidator creditDecisionValidator;
@@ -55,6 +60,14 @@ public class CreditDecisionController {
 		ResponseEntity<LoanSanctionDetails> responseEntity = null;
 		LoanSanctionDetails loanSanctionDetails = new LoanSanctionDetails();
 		try {
+			
+			logger.info("info message");
+			logger.debug("debug message");
+			logger.info("info message");
+			logger.warn("warn message");
+			logger.error("error message", new IOException("testing"));
+		
+			
 			if (creditDecisionValidator.validateApplicantDetails(applicantDetails)) {
 				if (!creditDecisionValidator.validateLoanSanctionHistory(applicantDetails)) {
 					creditscore = creditScoreService.getCreditScore(applicantDetails);
@@ -97,7 +110,7 @@ public class CreditDecisionController {
 			}
 
 		} catch (Exception e) {
-			LOGGER.error("Exception Occured inside calculateLoanAmount : " + e.getMessage());
+			logger.error("Exception Occured inside calculateLoanAmount : " + e.getMessage());
 			loanSanctionDetails.setEligibility(ApplicationConstant.EXCEPTION);
 			responseEntity = new ResponseEntity<LoanSanctionDetails>(loanSanctionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 
