@@ -1,0 +1,6 @@
+{
+	"sasUrl": "https://creditdecisionstorage.blob.core.windows.net/testingblob?sp=racwdl&st=2021-06-29T04:47:18Z&se=2021-06-30T12:47:18Z&sv=2020-02-10&sr=c&sig=GgSYGwymS%2Bm9thPtLm6UdzxfUHNDofRNhKtZOO7tCio%3D",
+	"accountName": "creditdecisionstorage",
+	"accountKey": "Oa4gN0SkvO34yECO+n9UE4kyCbsgQlOG/kGbJMONRMF18+wwX4YIYx4Bb527akuPzRPMcMQOR52uOZuMNLdviA==",
+	"containerName": "testingblob"
+}
