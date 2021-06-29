@@ -49,5 +49,5 @@ jobs:
       with:
         app-name: 'credit-decision'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_78ec34ef54ce446185c9fa61c2bfe291 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_82f80e017d7c4f4096466ec8901fdb95 }}
         package: '*.jar'
