@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.db.creditdecision.bo.ApplicantDetails;
 import com.db.creditdecision.bo.CreditScore;
@@ -33,9 +32,6 @@ import com.db.creditdecision.validator.CreditDecisionValidator;
 public class CreditDecisionController {
 
 	private static final Logger LOGGER = Logger.getLogger(CreditDecisionController.class);
-
-	@Autowired
-	private RestTemplate restTemplate;
 
 	@Autowired
 	CreditDecisionValidator creditDecisionValidator;
