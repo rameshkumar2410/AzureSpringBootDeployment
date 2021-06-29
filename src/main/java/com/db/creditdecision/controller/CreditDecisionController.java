@@ -1,12 +1,10 @@
 package com.db.creditdecision.controller;
 
-import java.io.IOException;
 import java.util.Date;
 
 import javax.ws.rs.core.MediaType;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.Configurator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.db.creditdecision.bo.ApplicantDetails;
 import com.db.creditdecision.bo.CreditScore;
@@ -33,10 +32,10 @@ import com.db.creditdecision.validator.CreditDecisionValidator;
 @RequestMapping("/creditdecision")
 public class CreditDecisionController {
 
-//	private static final Logger LOGGER = Logger.getLogger(CreditDecisionController.class);
-	
-	Logger logger = Configurator.initialize("TestingBlob", "config-webapps.xml")
-			.getLogger(CreditDecisionController.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(CreditDecisionController.class);
+
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Autowired
 	CreditDecisionValidator creditDecisionValidator;
@@ -60,14 +59,6 @@ public class CreditDecisionController {
 		ResponseEntity<LoanSanctionDetails> responseEntity = null;
 		LoanSanctionDetails loanSanctionDetails = new LoanSanctionDetails();
 		try {
-			
-			logger.info("info message");
-			logger.debug("debug message");
-			logger.info("info message");
-			logger.warn("warn message");
-			logger.error("error message", new IOException("testing"));
-		
-			
 			if (creditDecisionValidator.validateApplicantDetails(applicantDetails)) {
 				if (!creditDecisionValidator.validateLoanSanctionHistory(applicantDetails)) {
 					creditscore = creditScoreService.getCreditScore(applicantDetails);
@@ -110,7 +101,7 @@ public class CreditDecisionController {
 			}
 
 		} catch (Exception e) {
-			logger.error("Exception Occured inside calculateLoanAmount : " + e.getMessage());
+			LOGGER.error("Exception Occured inside calculateLoanAmount : " + e.getMessage());
 			loanSanctionDetails.setEligibility(ApplicationConstant.EXCEPTION);
 			responseEntity = new ResponseEntity<LoanSanctionDetails>(loanSanctionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 
